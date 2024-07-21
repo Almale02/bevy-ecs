@@ -422,11 +422,11 @@ macro_rules! impl_debug {
 }
 
 #[derive(Clone)]
-pub(crate) struct Ticks<'w> {
-    pub(crate) added: &'w Tick,
-    pub(crate) changed: &'w Tick,
-    pub(crate) last_run: Tick,
-    pub(crate) this_run: Tick,
+pub struct Ticks<'w> {
+    pub added: &'w Tick,
+    pub changed: &'w Tick,
+    pub last_run: Tick,
+    pub this_run: Tick,
 }
 
 impl<'w> Ticks<'w> {
@@ -662,8 +662,8 @@ impl<'w, T: 'static> From<NonSendMut<'w, T>> for Mut<'w, T> {
 /// }
 /// ```
 pub struct Ref<'w, T: ?Sized> {
-    pub(crate) value: &'w T,
-    pub(crate) ticks: Ticks<'w>,
+    pub value: &'w T,
+    pub ticks: Ticks<'w>,
 }
 
 impl<'w, T: ?Sized> Ref<'w, T> {

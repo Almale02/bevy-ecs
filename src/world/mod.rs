@@ -108,18 +108,18 @@ pub trait Command: Send + 'static {
 /// See [`Resource`] for usage.
 pub struct World {
     id: WorldId,
-    pub(crate) entities: Entities,
-    pub(crate) components: Components,
-    pub(crate) archetypes: Archetypes,
-    pub(crate) storages: Storages,
-    pub(crate) bundles: Bundles,
-    pub(crate) observers: Observers,
-    pub(crate) removed_components: RemovedComponentEvents,
-    pub(crate) change_tick: AtomicU32,
-    pub(crate) last_change_tick: Tick,
-    pub(crate) last_check_tick: Tick,
-    pub(crate) last_trigger_id: u32,
-    pub(crate) command_queue: RawCommandQueue,
+    pub entities: Entities,
+    pub components: Components,
+    pub archetypes: Archetypes,
+    pub storages: Storages,
+    pub bundles: Bundles,
+    pub observers: Observers,
+    pub removed_components: RemovedComponentEvents,
+    pub change_tick: AtomicU32,
+    pub last_change_tick: Tick,
+    pub last_check_tick: Tick,
+    pub last_trigger_id: u32,
+    pub command_queue: RawCommandQueue,
 }
 
 impl Default for World {

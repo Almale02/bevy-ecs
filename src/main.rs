@@ -3,12 +3,13 @@
 use std::marker::PhantomData;
 
 use bevy_ecs::{
-    component::Component,
+    change_detection::{DetectChanges, MAX_CHANGE_AGE},
+    component::{Component, Tick},
     entity::Entity,
     query::{Added, Changed, QueryBuilder},
     schedule::{IntoSystemConfigs, Schedule},
     system::Query,
-    world::World,
+    world::{Mut, Ref, World, CHECK_TICK_THRESHOLD},
 };
 use bevy_utils::tracing::Instrument;
 
@@ -25,21 +26,16 @@ struct Pos;
 
 fn main() {
     let mut world = World::new();
+    let entities = world.spawn(Vel(0)).id();
 
-    world.spawn((Vel(5), Health));
+    let mut query_changed = world.query_filtered::<&Vel, Changed<Vel>>();
+    let mut query = world.query::<&mut Vel>();
 
-    let mut query_provider =
-        QueryBuilder::<(&mut Vel, &Health), Added<Vel>>::new(&mut world).build();
+    dbg!(query_changed.iter(&world).count());
 
-    dbg!(query_provider.component_access());
-
-    let query = unsafe {
-        query_provider
-            .get_single_unchecked(world.as_unsafe_world_cell())
-            .unwrap()
-    };
-    dbg!(query.1);
-    dbg!(query.0);
+    world.clear_trackers();
+    query.get_mut(&mut world, entities).unwrap().0 += 1;
+    dbg!(query_changed.iter(&world).count());
 }
 
 auto trait Test {}

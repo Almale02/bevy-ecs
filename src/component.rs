@@ -935,7 +935,7 @@ impl Tick {
 
     /// Returns a change tick representing the relationship between `self` and `other`.
     #[inline]
-    pub(crate) fn relative_to(self, other: Self) -> Self {
+    pub fn relative_to(self, other: Self) -> Self {
         let tick = self.tick.wrapping_sub(other.tick);
         Self { tick }
     }
@@ -944,7 +944,7 @@ impl Tick {
     ///
     /// Returns `true` if wrapping was performed. Otherwise, returns `false`.
     #[inline]
-    pub(crate) fn check_tick(&mut self, tick: Tick) -> bool {
+    pub fn check_tick(&mut self, tick: Tick) -> bool {
         let age = tick.relative_to(*self);
         // This comparison assumes that `age` has not overflowed `u32::MAX` before, which will be true
         // so long as this check always runs before that can happen.

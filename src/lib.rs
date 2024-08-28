@@ -32,7 +32,6 @@ pub mod system;
 pub mod world;
 
 pub use bevy_ptr as ptr;
-use component::Component;
 
 /// Most commonly used re-exported types.
 pub mod prelude {

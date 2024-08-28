@@ -1569,10 +1569,7 @@ impl<D: QueryData, F: QueryFilter> QueryState<D, F> {
     #[inline]
     pub fn single_mut<'w>(&mut self, world: &'w mut World) -> D::Item<'w> {
         // SAFETY: query has unique world access
-        match self.get_single_mut(world) {
-            Ok(items) => items,
-            Err(error) => panic!("Cannot get single query result: {error}"),
-        }
+        self.get_single_mut(world).unwrap()
     }
 
     /// Returns a single mutable query result when there is exactly one entity matching

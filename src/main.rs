@@ -1,28 +1,8 @@
-#![feature(auto_traits)]
+use bevy_ecs::{component::Component, query::Changed, world::World};
 
-use std::marker::PhantomData;
-
-use bevy_ecs::{
-    change_detection::{DetectChanges, MAX_CHANGE_AGE},
-    component::{Component, Tick},
-    entity::Entity,
-    query::{Added, Changed, QueryBuilder},
-    schedule::{IntoSystemConfigs, Schedule},
-    system::Query,
-    world::{Mut, Ref, World, CHECK_TICK_THRESHOLD},
-};
-use bevy_utils::tracing::Instrument;
-
-#[derive(Component, Debug)]
-struct Health;
+#[deny(dead_code)]
 #[derive(Component, Debug)]
 struct Vel(u8);
-#[derive(Component)]
-struct Pig;
-#[derive(Component)]
-struct Zombie;
-//#[derive(Component)]
-struct Pos;
 
 fn main() {
     let mut world = World::new();
@@ -37,5 +17,3 @@ fn main() {
     query.get_mut(&mut world, entities).unwrap().0 += 1;
     dbg!(query_changed.iter(&world).count());
 }
-
-auto trait Test {}
